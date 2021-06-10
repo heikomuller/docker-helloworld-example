@@ -1,0 +1,63 @@
+actors:
+    - name: DownloadNames
+      image: "drama-docker-helloworld"
+      files:
+          outputs:
+              - src: "results/names.txt"
+                type: "TextFile"
+                dst:
+                    - "context::namesFile"
+                    - "store::helloworld/names-combined.txt"
+      commands:
+          - "python code/download.py --outputfile=results/names.txt"
+    - name: NamesSample
+      image: "drama-docker-helloworld"
+      files:
+          inputs:
+              - src: "context::namesFile"
+                type: "TextFile"
+                dst: "data/names.txt"
+          outputs:
+              - src: "results/name-sample.txt"
+                type: "TempFile"
+                dst:
+                    - "context::namesSampleFile"
+                    - "rundir::names.txt"
+      parameters:
+          - name: "size"
+            type: "int"
+            default: 10
+          - name: "randomState"
+            type: "int"
+      commands:
+          - "python code/sample.py --inputfile=data/names.txt --size=${size} --rand=${randomState} --outputfile=results/name-sample.txt"
+    - name: SayHello
+      image: "drama-docker-helloworld"
+      files:
+          inputs:
+              - src: "context::namesSampleFile"
+                type: "TempFile"
+                dst: "data/names.txt"
+          outputs:
+              - src: "results/greetings.txt"
+                type: "TextFile"
+                dst:
+                    - "rundir::greetings.txt"
+      parameters:
+          - name: "greeting"
+            type: "str"
+            default: "Hello"
+          - name: "sleeptime"
+            type: "float"
+            default: 1.0
+      commands:
+          - "python code/helloworld.py --inputfile=data/names.txt --greeting='${greeting}' --sleeptime=${sleeptime} --outputfile=results/greetings.txt"
+containers:
+    - tag: "drama-docker-helloworld"
+      baseImage: "python:3.8"
+      requirements:
+          - "argparse"
+          - "requests"
+      files:
+          - src: "code/"
+            dst: "code/"
