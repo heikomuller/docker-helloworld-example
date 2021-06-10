@@ -1,4 +1,4 @@
-actors:
+operators:
     - name: DownloadNames
       image: "drama-docker-helloworld"
       files:
@@ -52,7 +52,7 @@ actors:
             default: 1.0
       commands:
           - "python code/helloworld.py --inputfile=data/names.txt --greeting='${greeting}' --sleeptime=${sleeptime} --outputfile=results/greetings.txt"
-containers:
+dockerImages:
     - tag: "drama-docker-helloworld"
       baseImage: "python:3.8"
       requirements:
