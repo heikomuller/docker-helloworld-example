@@ -2,7 +2,6 @@ import argparse
 import requests
 import sys
 
-from io import StringIO
 from pathlib import Path
 
 
@@ -15,10 +14,8 @@ def main(outputfile):
     """
     r = requests.get(URL)
     r.raise_for_status()
-    with StringIO(r.text, newline='') as f:
-        with outputfile.open('wt') as f:
-            for name in [line.strip() for line in f]:
-                f.write(f"{name}\n")
+    with outputfile.open('wt') as f:
+        f.write(r.text)
 
 
 if __name__ == '__main__':
