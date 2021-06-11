@@ -1,28 +1,26 @@
 operators:
-    - name: DownloadNames
+    - name: "DownloadNames"
       image: "drama-docker-helloworld"
       files:
           outputs:
               - src: "results/names.txt"
                 type: "TextFile"
-                dst:
-                    - "context::namesFile"
-                    - "store::helloworld/names-combined.txt"
+                dst: "store::www.gutenberg.org/names.txt"
+                tags: ["namesFile"]
       commands:
           - "python code/download.py --outputfile=results/names.txt"
-    - name: NamesSample
+    - name: "SampleNames"
       image: "drama-docker-helloworld"
       files:
           inputs:
-              - src: "context::namesFile"
+              - src: "namesFile"
                 type: "TextFile"
                 dst: "data/names.txt"
           outputs:
               - src: "results/name-sample.txt"
                 type: "TempFile"
-                dst:
-                    - "context::namesSampleFile"
-                    - "rundir::names.txt"
+                dst: "rundir::names.txt"
+                tags: ["namesSampleFile"]
       parameters:
           - name: "size"
             type: "int"
@@ -31,18 +29,17 @@ operators:
             type: "int"
       commands:
           - "python code/sample.py --inputfile=data/names.txt --size=${size} --rand=${randomState} --outputfile=results/name-sample.txt"
-    - name: SayHello
+    - name: "SayHello"
       image: "drama-docker-helloworld"
       files:
           inputs:
-              - src: "context::namesSampleFile"
+              - src: "namesSampleFile"
                 type: "TempFile"
                 dst: "data/names.txt"
           outputs:
               - src: "results/greetings.txt"
                 type: "TextFile"
-                dst:
-                    - "rundir::greetings.txt"
+                dst: "rundir::greetings.txt"
       parameters:
           - name: "greeting"
             type: "str"
