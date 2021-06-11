@@ -21,7 +21,7 @@ def main(inputfile, outputfile, sample_size=10, random_state=None):
     sample = rand.sample(names, k=sample_size)
     # Write selected sample to output file.
     with outputfile.open('wt') as f:
-        for name in sample:
+        for name in sorted(sample):
             f.write(f'{name}\n')
 
 
