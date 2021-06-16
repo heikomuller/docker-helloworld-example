@@ -1,14 +1,34 @@
 operators:
-    - name: "DownloadNames"
+    - name: "DownloadAllNames"
       image: "drama-docker-helloworld"
       files:
           outputs:
-              - src: "results/names.txt"
+              - src: "results/all-names.txt"
                 type: "TextFile"
-                dst: "store::www.gutenberg.org/names.txt"
+                dst: "store::www.gutenberg.org/all-names.txt"
                 tags: ["namesFile"]
       commands:
-          - "python code/download.py --outputfile=results/names.txt"
+          - "python code/download.py --outputfile=results/all-names.txt"
+    - name: "DownloadFemaleNames"
+      image: "drama-docker-helloworld"
+      files:
+          outputs:
+              - src: "results/female-names.txt"
+                type: "TextFile"
+                dst: "store::www.gutenberg.org/female-names.txt"
+                tags: ["namesFile"]
+      commands:
+          - "python code/download.py --gender=female --outputfile=results/female-names.txt"
+    - name: "DownloadMaleNames"
+      image: "drama-docker-helloworld"
+      files:
+          outputs:
+              - src: "results/male-names.txt"
+                type: "TextFile"
+                dst: "store::www.gutenberg.org/male-names.txt"
+                tags: ["namesFile"]
+      commands:
+          - "python code/download.py --gender=male --outputfile=results/male-names.txt"
     - name: "SampleNames"
       image: "drama-docker-helloworld"
       files:
