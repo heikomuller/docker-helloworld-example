@@ -6,7 +6,8 @@ operators:
       files:
           outputs:
               - src: "results/all-names.txt"
-                type: "TextFile"
+                datatype:
+                    uri: "http://www.ontologies.khaos.uma.es/bigowl/TextFile"
                 dst: "store::www.gutenberg.org/all-names.txt"
                 tags: ["namesFile"]
       commands:
@@ -16,7 +17,8 @@ operators:
       files:
           outputs:
               - src: "results/female-names.txt"
-                type: "TextFile"
+                datatype:
+                    uri: "http://www.ontologies.khaos.uma.es/bigowl/TextFile"
                 dst: "store::www.gutenberg.org/female-names.txt"
                 tags: ["namesFile"]
       commands:
@@ -26,7 +28,8 @@ operators:
       files:
           outputs:
               - src: "results/male-names.txt"
-                type: "TextFile"
+                datatype:
+                    uri: "http://www.ontologies.khaos.uma.es/bigowl/TextFile"
                 dst: "store::www.gutenberg.org/male-names.txt"
                 tags: ["namesFile"]
       commands:
@@ -36,11 +39,11 @@ operators:
       files:
           inputs:
               - src: "namesFile"
-                type: "TextFile"
                 dst: "data/names.txt"
           outputs:
               - src: "results/name-sample.txt"
-                type: "TempFile"
+                datatype:
+                    uri: "http://www.ontologies.khaos.uma.es/bigowl/TextFile"
                 dst: "rundir::names.txt"
                 tags: ["namesSampleFile"]
       parameters:
@@ -55,12 +58,12 @@ operators:
       image: "drama-docker-helloworld"
       files:
           inputs:
-              - src: "namesSampleFile"
-                type: "TempFile"
+              - src: "namesFile"
                 dst: "data/names.txt"
           outputs:
               - src: "results/greetings.txt"
-                type: "TextFile"
+                datatype:
+                    uri: "http://www.ontologies.khaos.uma.es/bigowl/TextFile"
                 dst: "rundir::greetings.txt"
       parameters:
           - name: "greeting"
