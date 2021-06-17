@@ -1,3 +1,5 @@
+version: "0.1.0"
+namespace: "demo.hello-world"
 operators:
     - name: "DownloadAllNames"
       image: "drama-docker-helloworld"
