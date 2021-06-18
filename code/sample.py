@@ -20,8 +20,10 @@ def main(inputfile, outputfile, sample_size=10, random_state=None):
     rand.seed(random_state)
     sample = rand.sample(names, k=sample_size)
     # Write selected sample to output file.
+    print(f"Create sample of {sample_size} names from file {inputfile}:")
     with outputfile.open('wt') as f:
         for name in sorted(sample):
+            print(f"  {name}")
             f.write(f'{name}\n')
 
 

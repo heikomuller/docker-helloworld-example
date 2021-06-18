@@ -22,6 +22,7 @@ def main(outputfile, gender=None):
         url = URL_ALL
     r = requests.get(url)
     r.raise_for_status()
+    print(f"Download {url} to {outputfile}")
     with outputfile.open('wt') as f:
         f.write(r.text)
 
