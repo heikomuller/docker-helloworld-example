@@ -5,35 +5,32 @@ operators:
       image: "drama-docker-helloworld"
       files:
           outputs:
-              - src: "results/all-names.txt"
+              - src: "results/names.txt"
                 datatype:
                     uri: "http://www.ontologies.khaos.uma.es/bigowl/TextFile"
-                dst: "store::www.gutenberg.org/all-names.txt"
-                tags: ["namesFile"]
+                label: "namesFile"
       commands:
-          - "python code/download.py --outputfile=results/all-names.txt"
+          - "python code/download.py --outputfile=results/names.txt"
     - name: "DownloadFemaleNames"
       image: "drama-docker-helloworld"
       files:
           outputs:
-              - src: "results/female-names.txt"
+              - src: "results/names.txt"
                 datatype:
                     uri: "http://www.ontologies.khaos.uma.es/bigowl/TextFile"
-                dst: "store::www.gutenberg.org/female-names.txt"
-                tags: ["namesFile"]
+                label: "namesFile"
       commands:
-          - "python code/download.py --gender=female --outputfile=results/female-names.txt"
+          - "python code/download.py --gender=female --outputfile=results/names.txt"
     - name: "DownloadMaleNames"
       image: "drama-docker-helloworld"
       files:
           outputs:
-              - src: "results/male-names.txt"
+              - src: "results/names.txt"
                 datatype:
                     uri: "http://www.ontologies.khaos.uma.es/bigowl/TextFile"
-                dst: "store::www.gutenberg.org/male-names.txt"
-                tags: ["namesFile"]
+                label: "namesFile"
       commands:
-          - "python code/download.py --gender=male --outputfile=results/male-names.txt"
+          - "python code/download.py --gender=male --outputfile=results/names.txt"
     - name: "SampleNames"
       image: "drama-docker-helloworld"
       files:
@@ -44,8 +41,7 @@ operators:
               - src: "results/name-sample.txt"
                 datatype:
                     uri: "http://www.ontologies.khaos.uma.es/bigowl/TextFile"
-                dst: "rundir::names.txt"
-                tags: ["namesSampleFile"]
+                label: "namesSampleFile"
       parameters:
           - name: "size"
             type: "int"
@@ -64,7 +60,7 @@ operators:
               - src: "results/greetings.txt"
                 datatype:
                     uri: "http://www.ontologies.khaos.uma.es/bigowl/TextFile"
-                dst: "rundir::greetings.txt"
+                label: "greetingsFile"
       parameters:
           - name: "greeting"
             type: "str"
